@@ -7,10 +7,12 @@ import (
 )
 
 func main() {
+	fmt.Println("Bogosort")
 	arr := make([]int, 10)
 	for i := 0; i < 10; i++ {
 		arr[i] = rand.Intn(10)
 	}
+	fmt.Println(arr)
 	start := time.Now()
 	arr = bogoSort(arr)
 	end := time.Since(start)
