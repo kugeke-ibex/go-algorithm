@@ -13,10 +13,10 @@ func main() {
 		arr[i] = rand.Intn(10)
 	}
 	start := time.Now()
-	fmt.Println(arr)
+	fmt.Println("Unsorted array:", arr)
 	arr = bubbleSort(arr)
 	end := time.Since(start)
-	fmt.Println(arr)
+	fmt.Println("Sorted array:", arr)
 	fmt.Println(end)
 }
 
@@ -25,6 +25,7 @@ func bubbleSort(arr []int) []int {
 		for j := 0; j < len(arr) - 1 - i; j++ {
 			if arr[j] > arr[j+1] {
 				arr[j], arr[j+1] = arr[j+1], arr[j]
+				fmt.Println("Swapped array:", arr)
 			}
 		}
 	}
