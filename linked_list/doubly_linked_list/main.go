@@ -29,6 +29,10 @@ func main() {
 	d.print()
 	d.reverseRecursive()
 	d.print()
+	d.reverseRecursive()
+	d.print()
+	d.sort()
+	d.print()
 }
 
 type Node struct {
@@ -131,4 +135,22 @@ func _reverseRecursive(current *Node, previous *Node) *Node {
 
 func (d *DoublyLinkedList) reverseRecursive() {
 	d.head = _reverseRecursive(d.head, nil)
+}
+
+func (d *DoublyLinkedList) sort() {
+	if d.head == nil {
+		return
+	}
+
+	current := d.head
+	for current.next != nil {
+		next := current.next
+		for next != nil {
+			if current.data.(int) > next.data.(int) {
+				current.data, next.data = next.data, current.data
+			}
+			next = next.next
+		}
+		current = current.next
+	}
 }
