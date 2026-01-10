@@ -22,6 +22,13 @@ func main() {
 	// fmt.Println(d.head.next.data)
 	// fmt.Println(d.head.next.next.data)
 	// fmt.Println(d.head.next.next.next.data)
+	d.append(5)
+	d.append(7)
+	d.print()
+	d.reverseIterative()
+	d.print()
+	d.reverseRecursive()
+	d.print()
 }
 
 type Node struct {
@@ -94,4 +101,34 @@ func (d *DoublyLinkedList) remove(target any) {
 		previous = current
 		current = current.next
 	}
+}
+
+func (d *DoublyLinkedList) reverseIterative() {
+	var previous *Node
+	current := d.head
+	for current != nil {
+		next := current.next
+		current.next = previous
+		current.prev = next
+
+		previous = current
+		current = next
+	}
+	d.head = previous
+}
+
+func _reverseRecursive(current *Node, previous *Node) *Node {
+	if current == nil {
+		return previous
+	}
+
+	next := current.next
+	current.prev = next
+	current.next = previous
+
+	return _reverseRecursive(next, current)
+}
+
+func (d *DoublyLinkedList) reverseRecursive() {
+	d.head = _reverseRecursive(d.head, nil)
 }
