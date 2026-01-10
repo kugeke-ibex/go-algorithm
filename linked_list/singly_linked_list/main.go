@@ -86,6 +86,35 @@ func (l *LinkedList) reverseRecursive() {
 	l.head = _reverseRecursive(l.head, nil)
 }
 
+func _reverseEvenRecursive(head *Node, previous *Node) *Node {
+	if head == nil {
+		return nil
+	}
+
+	current := head
+	for current != nil && int(current.data.(int)) % 2 == 0 {
+		next := current.next
+		current.next = previous
+
+		previous = current
+		current = next
+	}
+
+	if current != head {
+		head.next = current
+		// 再度別リストとして再帰関数を呼び出す
+		_reverseEvenRecursive(current, nil)
+		return previous
+	} else {
+		head.next = _reverseEvenRecursive(head.next, head)
+		return head
+	}
+}
+
+func (l *LinkedList) reverseEven() {
+	l.head = _reverseEvenRecursive(l.head, nil)
+}
+
 func main() {
 	l := LinkedList{}
 	l.append(1)
@@ -107,6 +136,15 @@ func main() {
 	l.reverseIterative()
 	l.print()
 	l.reverseRecursive()
+	l.print()
+	l.append(2)
+	l.append(4)
+	l.append(6)
+	l.append(8)
+	l.append(9)
+	l.append(10)
+	l.append(12)
+	l.reverseEven()
 	l.print()
 	// fmt.Println("LinkedList Head: ", l.head.data)
 	// fmt.Println("LinkedList Next: ", l.head.next.data)
