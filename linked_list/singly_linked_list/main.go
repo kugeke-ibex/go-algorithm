@@ -59,6 +59,33 @@ func (l *LinkedList) remove(target any) {
 	}
 }
 
+func (l *LinkedList) reverseIterative() {
+	var previous *Node
+	current := l.head
+	for current != nil {
+		next := current.next
+		current.next = previous
+
+		previous = current
+		current = next
+	}
+	l.head = previous
+}
+
+func _reverseRecursive(current *Node, previous *Node) *Node {
+	if current == nil {
+		return previous
+	}
+	
+	next := current.next
+	current.next = previous
+	return _reverseRecursive(next, current)
+}
+
+func (l *LinkedList) reverseRecursive() {
+	l.head = _reverseRecursive(l.head, nil)
+}
+
 func main() {
 	l := LinkedList{}
 	l.append(1)
@@ -73,6 +100,13 @@ func main() {
 	l.append(3)
 	l.print()
 	l.remove(3)
+	l.print()
+	l.append(4)
+	l.append(5)
+	l.print()
+	l.reverseIterative()
+	l.print()
+	l.reverseRecursive()
 	l.print()
 	// fmt.Println("LinkedList Head: ", l.head.data)
 	// fmt.Println("LinkedList Next: ", l.head.next.data)
