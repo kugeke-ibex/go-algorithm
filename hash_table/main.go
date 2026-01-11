@@ -19,6 +19,11 @@ func main() {
 	fmt.Printf("key: car, value: %s, ok: %t\n", value, ok)
 	value, ok = h.get("game")
 	fmt.Printf("key: game, value: %s, ok: %t\n", value, ok)
+
+	numbers := []int{11, 2, 5, 9, 10, 3}
+	target := 12
+	fmt.Println(getPair(numbers, target))
+	fmt.Println(getPairHalfSum(numbers))
 }
 
 type KeyValuePair struct {
@@ -82,3 +87,41 @@ func (h HashTable) get(key string) (string, bool) {
 
 	return "", false
 }
+
+func getPair(numbers []int, target int) (int, int) {
+	cache := make(map[int]int)
+	for i, number := range numbers {
+		value := target - number
+		if _, ok := cache[value]; ok {
+			return value, number
+		}
+		cache[number] = i
+	}
+
+	return 0, 0
+}
+
+func getPairHalfSum(numbers []int) (int, int) {
+	sumNumbers := 0
+	for _, number := range numbers {
+		sumNumbers += number
+	}
+
+	if sumNumbers % 2 != 0 {
+		return 0, 0
+	}
+
+	halfSum := sumNumbers / 2
+	cache := make(map[int]int)
+	fmt.Println(numbers)
+	for i, number := range numbers {
+		value := halfSum - number
+		if _, ok := cache[value]; ok {
+			return value, number
+		}
+		cache[number] = i
+	}
+
+	return 0, 0
+}
+ 
