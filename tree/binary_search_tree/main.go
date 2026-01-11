@@ -32,6 +32,32 @@ func main() {
 	fmt.Println("--------------------------------")
 	root = root.Remove(6)
 	root.InOrder()
+
+
+
+	fmt.Println()
+	fmt.Println("Binary Search Tree")
+	bst := BinarySearchTree{}
+	bst.Insert(3)
+	bst.Insert(6)
+	bst.Insert(5)
+	bst.Insert(7)
+	bst.Insert(1)
+	bst.Insert(10)
+	bst.Insert(2)
+	fmt.Println("--------------------------------")
+	bst.InOrder()
+	fmt.Println("--------------------------------")
+	bst.PreOrder()
+	fmt.Println("--------------------------------")
+	bst.PostOrder()
+	fmt.Println("--------------------------------")
+	fmt.Printf("Search 10: %v\n", bst.Search(10))
+	fmt.Printf("Search 5: %v\n", bst.Search(5))
+	fmt.Printf("Search 9: %v\n", bst.Search(9))
+	fmt.Printf("Search 4: %v\n", bst.Search(4))
+	bst.Remove(6)
+	bst.InOrder()
 }
 
 type Node struct {
@@ -122,4 +148,32 @@ func (n *Node) Remove(value int) *Node {
 	}
 
 	return n
+}
+
+type BinarySearchTree struct {
+	root *Node
+}
+
+func (b *BinarySearchTree) Insert(value int) {
+	b.root = b.root.Insert(b.root, value)
+}
+
+func (b *BinarySearchTree) InOrder() {
+	b.root.InOrder()
+}
+
+func (b *BinarySearchTree) PreOrder() {
+	b.root.PreOrder()
+}
+
+func (b *BinarySearchTree) PostOrder() {
+	b.root.PostOrder()
+}
+
+func (b *BinarySearchTree) Search(value int) bool {
+	return b.root.Search(value)
+}
+
+func (b *BinarySearchTree) Remove(value int) {
+	b.root = b.root.Remove(value)
 }
