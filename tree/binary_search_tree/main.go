@@ -28,15 +28,19 @@ func main() {
 	fmt.Printf("Search 5: %v\n", root.Search(5))
 	fmt.Printf("Search 9: %v\n", root.Search(9))
 	fmt.Printf("Search 4: %v\n", root.Search(4))
+
+	fmt.Println("--------------------------------")
+	root = root.Remove(6)
+	root.InOrder()
 }
 
 type Node struct {
 	value int
-	left *Node
+	left  *Node
 	right *Node
 }
 
-func (n *Node) Insert(node *Node, value int) *Node{
+func (n *Node) Insert(node *Node, value int) *Node {
 	if node == nil {
 		return &Node{value: value}
 	}
@@ -87,3 +91,35 @@ func (n *Node) Search(value int) bool {
 	}
 }
 
+func (n *Node) minNode() *Node {
+	current := n
+	for current.left != nil {
+		current = current.left
+	}
+
+	return current
+}
+
+func (n *Node) Remove(value int) *Node {
+	if n == nil {
+		return nil
+	}
+
+	if value < n.value {
+		n.left = n.left.Remove(value)
+	} else if value > n.value {
+		n.right = n.right.Remove(value)
+	} else {
+		if n.left == nil {
+			return n.right
+		} else if n.right == nil {
+			return n.left
+		}
+
+		temp := n.right.minNode()
+		n.value = temp.value
+		n.right = n.right.Remove(temp.value)
+	}
+
+	return n
+}
