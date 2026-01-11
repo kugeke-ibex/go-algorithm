@@ -20,6 +20,15 @@ func main() {
 	fmt.Println(q.dequeue())
 	fmt.Println(q.dequeue())
 	fmt.Println(q.dequeue())
+	q.enqueue(5)
+	q.enqueue(6)
+	q.enqueue(7)
+	q.enqueue(8)
+	q.enqueue(9)
+	q.enqueue(10)
+	fmt.Println(q.queue)
+
+	q.reverse()
 	fmt.Println(q.queue)
 
 	taskN := 100
@@ -60,4 +69,13 @@ func (q *Queue) dequeue() any {
 	}
 
 	return nil
+}
+
+func (q *Queue) reverse() {
+	newQueue := make([]any, 0, len(q.queue))
+	for index := len(q.queue) - 1; index >= 0; index-- {
+		newQueue = append(newQueue, q.queue[index])
+	}
+
+	q.queue = newQueue
 }
